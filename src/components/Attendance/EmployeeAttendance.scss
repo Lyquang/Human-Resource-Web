@@ -1,0 +1,75 @@
+.employee-attendance {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .filters {
+            display: flex;
+            gap: 10px;
+
+            select,
+            input {
+                padding: 5px;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+            }
+        }
+
+        .actions {
+            button {
+                margin-left: 10px;
+                padding: 8px 12px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-weight: bold;
+
+                &.check-in {
+                    background-color: #52c41a;
+                    color: #fff;
+                }
+
+                &.check-out {
+                    background-color: #fa541c;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .calendar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+
+        .calendar-row {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .calendar-day {
+            flex: 0 1 calc(14.28% - 5px);
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            .day-number {
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .day-status {
+                font-size: 12px;
+                margin-top: 5px;
+            }
+        }
+    }
+}

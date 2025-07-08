@@ -1,0 +1,126 @@
+.dashboard {
+  // width: 70vw; /* Full viewport width */
+
+
+  background-color: #f4f4f4;
+  flex-grow: 1;
+  padding: 0;
+  /* Remove extra padding */
+}
+
+.welcome-section {
+  width: 100%;
+  /* Full width of the container */
+  background-color: #e0e7ff;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+
+  .left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: #01008a;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #333;
+    }
+  }
+
+  .right-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 2.5rem;
+    color: #6a72c7;
+  }
+}
+
+.widget-grid {
+  width: 100%;
+  /* Full width of the container */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+  /* Optional: add padding on sides for balance */
+
+  .frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    min-height: 150px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .employee {
+    background-color: #d0f8f4;
+  }
+
+  .attendance {
+    background-color: #ffe4c4;
+  }
+
+  .salary {
+    background-color: #ffd4ef;
+  }
+
+  .department {
+    background-color: #d9f7cc;
+  }
+
+  .project {
+    background-color: #cff1ff;
+  }
+
+  .training {
+    background-color: #fff9cc;
+  }
+
+  .statistic {
+    background-color: #ffd9d9;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+
+    .left-section {
+      align-items: center;
+    }
+
+    .right-section {
+      margin-top: 20px;
+    }
+  }
+
+  .widget-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}

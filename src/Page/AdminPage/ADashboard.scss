@@ -1,0 +1,36 @@
+.dashboard {
+    .dashboard-card {
+        margin-bottom: 20px;
+
+        .card-box {
+            padding: 20px;
+            background: #0C6478;
+            /* Màu nền mới */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+
+            h3 {
+                margin-bottom: 10px;
+                font-size: 1.5rem;
+                color: #fff;
+                /* Màu chữ để dễ nhìn hơn trên nền màu xanh */
+            }
+
+            p {
+                color: #f9f9f9;
+                /* Màu chữ phụ */
+            }
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+    }
+}
