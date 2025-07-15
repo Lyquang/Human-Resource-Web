@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaBriefcase } from "react-icons/fa";
-import "./EmployeeInfor.scss";
+// import "./EmployeeInfor.scss";
 
 const ManagerInfor = () => {
   const [profile, setProfile] = useState({
@@ -209,7 +209,7 @@ const ManagerInfor = () => {
                 onChange={(e) =>
                   setProfile({
                     ...profile,
-                    address: `${e.target.value}, ${profile.address.split(",")[1]}`,
+                    address: `${e.target.value}, ${profile.address.splits(",")[1]}`,
                   })
                 }
                 className="editable-input"

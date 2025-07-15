@@ -2,6 +2,7 @@ import React from "react";
 import { Trash, User } from "react-feather";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Settings2Icon } from "lucide-react";
+import DefaultPhoto from "../assets/defaut_pho.png"; // Adjust the path as necessary
 
 const getRoleColor = (role) => (role === "EMPLOYEE" ? "#0004fc" : "#fc0000");
 
@@ -16,7 +17,7 @@ const EmployeeCard = ({ employee, index, onSettingClick }) => {
                     <div className='col-3 d-flex flex-column align-items-center' style={{ height: '100%' }}>
                         {/* Phần Avatar chiếm 2/3 */}
                         <div className="d-flex flex-column align-items-center flex-grow-2">
-                            <img src={employee.avatar} className='card-img rounded-circle mt-3' alt='Avatar'
+                            <img src={employee.avatar || DefaultPhoto } className='card-img rounded-circle mt-3' alt='Avatar'
                                 style={{
                                     objectFit: 'cover',
                                     height: '70px',

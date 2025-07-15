@@ -1,24 +1,45 @@
 import React, { useEffect, useState } from "react";
-import "./Department.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { getAllDepartment, postCreateNewDepartment } from "../services/apiService";
+import { AddDepartmentBtn } from "./AddDepartmentBtn";
+import { DeleteDepartmentBtn } from "./DeleteDepartmentBtn";
 import axios from "../utils/axiosCustomize";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 
 const Department = () => {
   const [departments, setDepartments] = useState([]);
   const [error, setError] = useState(null);
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    managerId: "",
-  });
+  const managerNameEach= useState(null);
 
-  const fetchDepartments = async () => {
+useEffect(() => {
+  const fetchDepartmentsWithManagers = async () => {
     try {
-      const response = await getAllDepartment();
+      const response = await axios.get("http://localhost:8080/api/departments/all");
       if (response && response.data) {
-        setDepartments(response.data.result); // Update to use "result" from API response
+        const rawDepartments = response.data.result;
+
+        // Gọi song song các API lấy tên trưởng phòng
+        const departmentsWithManagerNames = await Promise.all(
+          rawDepartments.map(async (dept) => {
+            if (!dept.managerId) return { ...dept, managerName: null };
+
+            try {
+              const managerRes = await axios.get(`http://localhost:8080/api/managers`, {
+                params: { code: dept.managerId },
+              });
+
+              const managerData = managerRes.data?.result;
+              const managerName = managerData ? `${managerData.lastName} ${managerData.firstName}` : "Không rõ";
+              // console.log(`Tên trưởng phòng cho managerId=${dept.managerId}: ${managerName}`);
+              return { ...dept, managerName };
+            } catch (error) {
+              console.warn(`Không lấy được tên cho managerId=${dept.managerId}`);
+              return { ...dept, managerName: "Không xác định" };
+            }
+          })
+        );
+
+        setDepartments(departmentsWithManagerNames);
       }
     } catch (err) {
       setError(err.message);
@@ -26,160 +47,52 @@ const Department = () => {
     }
   };
 
-  useEffect(() => {
-    fetchDepartments();
-  }, []);
-
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const openForm = () => {
-    setShowForm(true);
-    setFormData({
-      name: "",
-      managerId: "",
-    });
-  };
-
-  const closeForm = () => {
-    setShowForm(false);
-    setFormData({
-      name: "",
-      managerId: "",
-    });
-  };
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-  
-    try {
-      const payload = {
-        departmentName: formData.name,
-        managerId: formData.managerId ? Number(formData.managerId) : null, // Ensure managerId is numeric or null
-      };
-  
-      const response = await postCreateNewDepartment(payload);
-  
-      if (response && response.data && response.data.result) {
-        // Add the newly created department to the state
-        setDepartments((prevDepartments) => [
-          ...prevDepartments,
-          response.data.result,
-        ]);
-        console.log("Department created successfully:", response.data.result);
-      }
-    } catch (err) {
-      setError(err.message);
-      console.error("Error creating department:", err);
-    }
-  
-    closeForm();
-  };
-  
+  fetchDepartmentsWithManagers();
+}, []);
 
 
-  const deleteDepartment = async (id) => {
-      if (window.confirm(" Bạn có chắc chắn là xóa phòng ban này không ?")) {
-          try {
-              // API call to delete the department
-              const response = await axios.delete(`http://localhost:8080/api/departments/delete`, {
-                  params: { id },
-              });
-  
-              // Update state if the delete request was successful
-              if (response.status === 200) {
-                  setDepartments((prevDepartments) =>
-                      prevDepartments.filter((dept) => dept.departmentId !== id)
-                  );
-                  alert("Phòng ban đã được xóa thành công");
-              } else {
-                  alert("Bị lỗi khi xóa phòng ban");
-              }
-          } catch (error) {
-              console.error("Error deleting the department:", error);
-              alert("An error occurred while deleting the department.");
-          }
-      }
-  };
-  
 
-  return (
-    <div className="departments-container">
-      <h2 className="departments-title">Danh sách phòng ban</h2>
-      <div className="departments-grid">
-        {departments.map((department) => (
-          <div
-            key={department.departmentId}
-            className={`department-card department-${department.departmentId}`}
-          >
-            <div className="department-card-header">
-              <h3 className="department-name">{department.departmentName}</h3>
-              <div className="department-actions">
-                <FaEdit
-                  className="action-icon edit-icon"
-                  onClick={() => openForm(department)}
-                />
-                <FaTrashAlt
-                  className="action-icon delete-icon"
-                  onClick={() => deleteDepartment(department.departmentId)}
-                />
+
+
+
+return (
+    <div className="container py-4">
+      <div className="row">
+          <h2 className="text-center mb-4">All Departments</h2>
+          <div>
+            <AddDepartmentBtn setDepartments={setDepartments} />
+          </div>
+      </div>
+    
+      <div className="row">
+        {departments.map((departmentsWithManagerNames) => (
+          <div key={departmentsWithManagerNames.departmentId} className="col-md-4 mb-4">
+            <div className="card shadow-sm h-100">
+              <div className="card-header d-flex justify-content-between align-items-center">
+                <h5 className="mb-0">{departmentsWithManagerNames.departmentName}</h5>
+                <div>
+                  {/* <FaEdit
+                    className="text-primary mr-2"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => openForm(departmentsWithManagerNames)}
+                  /> */}
+                </div>
+              <DeleteDepartmentBtn
+                departmentId={departmentsWithManagerNames.departmentId}
+              />
+
               </div>
-            </div>
-            <div className="department-card-body">
-              <p><strong>Mã phòng ban:</strong> {department.departmentId}</p>
-              <p><strong>Số lượng nhân viên:</strong> {department.employeeNumber}</p>
-              <p>
-                <strong>Mã quản lý:</strong> {department.managerId ? department.managerId : "Chưa có"}
-              </p>
+              <div className="card-body">
+                <p><strong>Mã phòng ban:</strong> {departmentsWithManagerNames.departmentId}</p>
+                <p><strong>Số lượng nhân viên:</strong> {departmentsWithManagerNames.employeeNumber}</p>
+                <p><strong>Establishment Date :</strong> {departmentsWithManagerNames.establishmentDate}</p>
+                <p><strong>Mã của Trưởng Phòng:</strong> {departmentsWithManagerNames.managerId || "Chưa có"}</p>
+                <p><strong>Trường Phòng:</strong> {departmentsWithManagerNames.managerName|| "Chưa có"}</p>
+              </div>
             </div>
           </div>
         ))}
       </div>
-      <button className="create-department-button" onClick={openForm}>
-        + Tạo phòng ban mới
-      </button>
-
-      {showForm && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>Tạo phòng ban mới</h3>
-            <form onSubmit={handleFormSubmit}>
-              <div className="form-group">
-                <label style={{ textAlign: "left", display: "block" }}>Tên phòng ban:</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleFormChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label style={{ textAlign: "left", display: "block" }}>Mã quản lý:</label>
-                <input
-                  type="text"
-                  name="managerId"
-                  value={formData.managerId}
-                  onChange={handleFormChange}
-                />
-              </div>
-              <div className="form-buttons">
-                <button type="submit" className="submit-button">
-                  Tạo mới
-                </button>
-                <button type="button" className="cancel-button" onClick={closeForm}>
-                  Hủy
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

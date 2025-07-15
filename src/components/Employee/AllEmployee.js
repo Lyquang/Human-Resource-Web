@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EmployeeCard from "./EmployeeCard";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { AddPersonel } from "./AddPersonel";
+import { AssignEmployeeBtn } from "./AssignEmployeeBtn";
 
 
 function AllEmployee() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -52,7 +55,15 @@ function AllEmployee() {
           }
         `}
       </style>
-      <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">All Employees</h2>
+      <div className="row"> 
+        <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">All Employees</h2>
+         <div className="">
+            <AddPersonel />
+            <AssignEmployeeBtn refresh={() => window.location.reload()} />
+          </div>
+
+      </div>
+      
       {employees.length === 0 ? (
         <p className="text-center text-gray-600 text-lg">No employees found.</p>
       ) : (
@@ -65,7 +76,10 @@ function AllEmployee() {
                 index={index}
               />
             </div>
+            
           ))}
+
+         
         </div>
       )}
     </div>

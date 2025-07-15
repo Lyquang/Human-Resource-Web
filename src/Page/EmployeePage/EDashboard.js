@@ -6,7 +6,7 @@ const EDashboard = () => {
 
   const { personnel } = useOutletContext();
 
-  useEffect(() => {
+  useEffect(() => { 
     console.log("Dashboard personnel >>>", personnel); // Logs whenever personnel changes
   }, [personnel]);
 
