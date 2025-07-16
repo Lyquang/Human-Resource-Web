@@ -38,7 +38,7 @@ export const PersonelInforCard = () => {
   });
 
   useEffect(() => {
-    const fetchEmployeeData = async () => {
+    const fetchPersonelData = async () => {
       try {
         const token = localStorage.getItem("token");
         const accountId = localStorage.getItem("accountId");
@@ -105,7 +105,7 @@ export const PersonelInforCard = () => {
       }
     };
 
-    fetchEmployeeData();
+    fetchPersonelData();
   }, []);
 
   if (loading) return <div className="text-center my-5">Loading...</div>;

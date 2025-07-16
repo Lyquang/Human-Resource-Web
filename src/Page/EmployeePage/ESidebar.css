@@ -1,0 +1,23 @@
+.sidebar-bg {
+  background-color: #d8eefe;
+  color:#001858;
+  transition: width 0.3s;
+}
+.sidebar-text{
+    color:#001858;
+}
+.nav-link {
+  color: #ccc;
+  font-weight: 500;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  &.active {
+    background-color: #495057 !important;
+    color: #fff !important;
+    font-weight: 600;
+  }
+}

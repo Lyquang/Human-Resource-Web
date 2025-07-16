@@ -2,148 +2,172 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { PiNotePencilDuotone } from 'react-icons/pi';
 import { FaProjectDiagram, FaRegUser, FaHome } from 'react-icons/fa';
-import { GiTeamUpgrade } from 'react-icons/gi';
-import { BiLogOut, BiChat, BiChevronDown } from 'react-icons/bi';
-import './ESidebar.scss';
+import { BiLogOut, BiChat } from 'react-icons/bi';
+import Defaut_Profile from '../../components/assets/defaut_pho.png';
+import { IoMdCloudUpload } from "react-icons/io";
+import { FaArrowRight } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import "bootstrap/dist/css/bootstrap.min.css";
+import './ESidebar.css';
 
 function ESidebar({ accountId, token }) {
   const [expanded, setExpanded] = useState(true);
-  const [projectDropdown, setProjectDropdown] = useState(false);
-  const [personnel, setPersonnel] = useState(null); // State to store personnel data
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [profile, setProfile] = useState({
+    personelCode: "",
+    firstName: "",
+    lastName: "",
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    department: "",
+    position: "",
+    profileImage: "",
+    gender: "",
+    taskList: [],
+    tasksCompleteNumber: 0,
+    projectList: [],
+    projectsCompleteNumber: 0,
+  });
 
-  // Fetch personnel data from API using fetch
   useEffect(() => {
-
-    const token = localStorage.getItem("token");
-    const accountId = localStorage.getItem("accountId");
-    console.log("accountID, token", accountId, token);
-    if (!accountId || !token) return; // Avoid making the call if accountId or token is not available
-
-    const fetchPersonnel = async () => {
+    const fetchPersonelData = async () => {
       try {
-        const response = await fetch(
+        const token = localStorage.getItem("token");
+        const accountId = localStorage.getItem("accountId");
+
+        if (!token || !accountId) {
+          setError("Authentication token or account ID not found");
+          setLoading(false);
+          return;
+        }
+        console.log("accountId at manager infor >>>> ", accountId);
+        const Empresponse = await fetch(
           `http://localhost:8080/api/employee/account?id=${accountId}`,
           {
-            method: 'GET',
+            method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
           }
         );
-        if (response.ok) {
-          const data = await response.json();
-          setPersonnel(data);
-          console.log("personnel >>>", personnel);
-        } else {
-          console.error('Error fetching personnel data:', response.statusText);
+        // http://localhost:8080/api/managers/account?id=028b31fa-6ed0-42fb-8ae1-a4fd6f32ca21
+        const ManaResponse = await fetch(
+          `http://localhost:8080/api/managers/account?id=${accountId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const MainResponse = Empresponse.ok ? Empresponse : ManaResponse;
+        const data = await MainResponse.json();
+
+        if (!MainResponse.ok) {
+          throw new Error("Failed to fetch employee data");
         }
-      } catch (error) {
-        console.error('Error fetching personnel data:', error);
+
+        localStorage.setItem("personelCode", data.personelCode);
+
+        setProfile({
+          personelCode: data.personelCode,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          name: `${data.lastName} ${data.firstName}`,
+          email: data.email,
+          phone: data.phone,
+          address: `${data.street}, ${data.city}`,
+          department: data.departmentName,
+          position: data.position,
+          profileImage: data.avatar,
+          gender: data.gender,
+          taskList: data.taskList || [],
+          tasksCompleteNumber: data.tasksCompleteNumber || 0,
+          projectList: data.projectList || [],
+          projectsCompleteNumber: data.projectsCompleteNumber || 0,
+        });
+
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
       }
     };
 
-    fetchPersonnel();
-  }, [accountId, token]);  // Only re-run if accountId or token change
+    fetchPersonelData();
+  }, []);
 
-  const toggleProjectDropdown = () => {
-    setProjectDropdown((prev) => !prev);
-  };
-
-  return (
-    <div className={`sidebar ${expanded ? 'expanded' : 'collapsed'}`}>
-      <div className="sidebar-header">
-        <div className="header-row">
-          <span className="logo">BK-MANARATE</span>
-          <button
-            onClick={() => setExpanded((prev) => !prev)}
-            className="toggle-btn"
-            aria-label="Toggle Sidebar"
-          >
-            {expanded ? 'X' : '>'}
-          </button>
-        </div>
-        <div className="user-info">
-          <img
-            className="avatar rounded-circle"
-            src={personnel?.avatar || 'https://via.placeholder.com/50'}
-            alt="User Avatar"
-          />
-          {expanded && (
-            <span className="user-name">
-              {personnel?.lastName && personnel?.firstName
-                ? `${personnel.lastName} ${personnel.firstName}`
-                : 'Loading...'}
-            </span>
-          )}
-        </div>
+return (
+    <div
+      className={`sidebar-bg d-flex flex-column vh-100 shadow-sm`}
+      style={{
+        width: expanded ? '250px' : '80px',
+        transition: 'width 0.3s',
+        margin:'8px',
+        borderRadius: '15px',
+      }}
+    >
+      {/* Header  */}
+      <div className="d-flex justify-content-between align-items-center p-3 border-bottom border-secondary">
+        <span className="font-weight-bold">{expanded && 'BK-MANARATE'}</span>
+        <button className="btn btn-sm btn-outline " style={{fontSize:'1.5rem', color:'#3da9fc'}} onClick={() => setExpanded(!expanded)}>
+          {expanded ?  <MdCancel /> : <FaArrowRight />}
+        </button>
       </div>
 
-      <div className="nav-links">
-        <NavLink to="/login/employee" className="nav-link-side" activeClassName="active-link">
-          <FaHome />
-          <span className={`link-text ${expanded ? 'show' : ''}`}>Trang chủ</span>
-        </NavLink>
-
-        <NavLink
-          to="infor"
-          className="nav-link-side"
-          activeClassName="active-link"
-        >
-          <FaRegUser />
-          <span className={`link-text ${expanded ? 'show' : ''}`}>Thông tin</span>
-        </NavLink>
-
-        <NavLink
-          to="attendance"
-          className="nav-link-side"
-          activeClassName="active-link"
-        >
-          <PiNotePencilDuotone />
-          <span className={`link-text ${expanded ? 'show' : ''}`}>Chấm công</span>
-        </NavLink>
-
-        <NavLink
-          to="submittask"
-          className="nav-link-side"
-          activeClassName="active-link"
-        >
-          <FaProjectDiagram />
-          <span className={`link-text ${expanded ? 'show' : ''}`}>Nộp task</span>
-        </NavLink>
-
-
-        {expanded && projectDropdown && (
-          <div className="dropdown-content">
-            <NavLink
-              to="participation"
-              className="dropdown-item"
-              activeClassName="active-link"
-            >
-              Các dự án tham gia
-            </NavLink>
-            <NavLink
-              to="submittask"
-              className="dropdown-item"
-              activeClassName="active-link"
-            >
-              Nộp task
-            </NavLink>
+      {/* Avatar */}
+      <div className="text-center py-3 border-bottom border-secondary">
+        <img
+          src={profile?.profileImage || Defaut_Profile}
+          alt="Avatar"
+          className="rounded-circle border"
+          style={{ width: '3.5rem', height: '3.5rem', objectFit: 'cover' }}
+        />
+        {expanded && (
+          <div className="mt-2 small text-truncate justify-content-between align-items-center fw-bold">
+            {profile?.lastName} {profile?.firstName}
           </div>
         )}
+      </div>
 
-        <NavLink to="notification" className="nav-link-side" activeClassName="active-link">
-          <BiChat />
-          <span className={`link-text ${expanded ? 'show' : ''}`}>Thông báo</span>
-        </NavLink>
-        <NavLink
-          to="logout"
-          className="nav-link-side"
-          activeClassName="active-link"
-        >
-          <BiLogOut />
-          <span className={`link-text ${expanded ? 'show' : ''}`}>Đăng xuất</span>
-        </NavLink>
+      {/* Nav Links */}
+      <div className="nav sidebar-bg flex-column mt-3 px-2" style={{fontSize: '1.1rem'}}>
+        {[
+          { to: '/login/employee', icon: <FaHome />, text: ' Home' },
+          { to: 'infor', icon: <FaRegUser />, text: ' My Information' },
+          { to: 'attendance', icon: <PiNotePencilDuotone />, text: ' Check Attendance' },
+          { to: 'submittask', icon: <IoMdCloudUpload />, text: ' Submit Task' },
+          { to: 'notification', icon: <BiChat />, text: ' Notifications' },
+        ].map(({ to, icon, text }, idx) => (
+          <NavLink
+            key={idx}
+            to={to}
+            exact
+            className="nav-link d-flex align-items-center py-2 rounded px-2 my-1"
+            activeClassName="active"
+            style={{ transition: 'background 0.3s' }}
+          >
+            <span className="mr-2" style={{ fontSize: '1.5rem' }}>{icon}</span>
+            {expanded && <span style={{marginLeft:'10px'}}>{text}</span>}
+          </NavLink>
+        ))}
+
+        <div className="mt-auto mb-3">
+          <NavLink
+            to="/"
+            className="nav-link d-flex align-items-center text-light py-2 rounded px-2 my-1"
+            activeClassName="active"
+          >
+            <BiLogOut className="mr-2" style={{ fontSize: '1.2rem' }} />
+            {expanded && <span style={{marginLeft:'10px'}} >Log Out  </span>}
+          </NavLink>
+        </div>
       </div>
     </div>
   );
