@@ -35,7 +35,6 @@ import AdminSalary from './components/Salary/AdminSalary';
 import AdminTraining from './components/Training/AdminTraining';
 
 import ADashboard from './Page/AdminPage/ADashboard';
-import Department from './components/Department/Department';
 import AdminAttendance from './components/Attendance/AdminAttendance';
 
 
@@ -57,9 +56,10 @@ import EmployeeTraining from './components/Training/EmployeeTraining';
 // import EmployeeChat from './components/Chat/EmployeeNotifications';
 
 import Participation from './components/Project/Employee/Participation';
-import ManagerInfor from './components/Information/ManagerInfor';
+// import ManagerInfor from './components/Information/ManagerInfor';
 import ManagerNotification from './components/Chat/Manager/ManagerNotification';
 import EmployeeNotification from './components/Chat/Employee/EmployeeNotification';
+import DepartmentPage from './components/Department/DepartmentPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -75,7 +75,7 @@ root.render(
           <Route path="employee" element={<AllEmployee />} />
           <Route path="admin-attendance" element={<AdminAttendance />} />
           <Route path="admin-salary" element={<AdminSalary />} />
-          <Route path="department" element={<Department />} />
+          <Route path="department" element={<DepartmentPage />} />
 
           <Route path="admin-training" element={<AdminTraining />} />
           <Route path="statistic" element={<Statistic />} />
@@ -100,12 +100,12 @@ root.render(
         <Route exact path="/login/manager" element={<ManagerPage />}>
 
           {/* <Route index element={<Dashboard />}></Route> */}
-          <Route path="infor" element={<ManagerInfor />} />
+          <Route path="infor" element={<EmployeeInfor />} />
           <Route path="attendance" element={<EmployeeAttendance />} />
 
           {/* <Route path="salary" element={<Salary />} /> */}
 
-          <Route path="department" element={<Department />} />
+          <Route path="department" element={<DepartmentPage />} />
           <Route path="project" element={<ManagerProject />} />
           <Route path="training" element={<EmployeeTraining />} />
           <Route path="notification" element={<ManagerNotification />} />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const AssignEmployeeBtn = ({ refresh }) => {
+export const AssignEmployeeBtn = ({ refresh, children }) => {
   const [formData, setFormData] = useState({
     employeeId: '',
     departmentId: ''
@@ -67,9 +67,9 @@ export const AssignEmployeeBtn = ({ refresh }) => {
 
   return (
     <div className="mt-4">
-      <button className="btn btn-primary" onClick={openForm}>
-        🏷️ Assign Employee to Department
-      </button>
+      <span className="btn btn-success" onClick={openForm}>
+       { children||"🏷️ Assign Employee to Department"} 
+      </span>
 
       {showForm && (
         <div

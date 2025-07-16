@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, Children } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
-export const AddPersonel = () => {
+export const AddPersonel = ({children}) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -140,15 +140,15 @@ export const AddPersonel = () => {
   return (
     <div className="container mt-4">
       <div className="dropdown mb-3 " style={{backgroundColor:'transparent'}} ref={dropdownRef}>
-        <button className="btn btn-primary dropdown-toggle" type="button" onClick={toggleDropdown}>
-          + Thêm nhân sự
-        </button>
+        <span className="btn btn-success dropdown-toggle" type="button" onClick={toggleDropdown}>
+          {children ||"+ Thêm nhân sự"}
+        </span>
 
         <div className={`dropdown-menu ${showDropdown ? 'show' : ''}` }>
-          <button className="dropdown-item bg-p" onClick={handleAddEmployee}>
+          <button className="dropdown-item bg-success " onClick={handleAddEmployee}>
             ➕ Add Employee
           </button>
-          <button className="dropdown-item bg-primary " onClick={handleAddManager}>
+          <button className="dropdown-item bg-success " onClick={handleAddManager}>
             ➕ Add Manager
           </button>
         </div>
@@ -181,7 +181,7 @@ export const AddPersonel = () => {
 
             <div className="modal-body" style={{ maxHeight: '75rem',maxWidth: '60rem', overflowY: 'auto' }}>
               <form onSubmit={handleSubmit}>
-                <form>
+                <form style={{ gap: '3rem' }}>
                     <div class="row">
                         <div class="col">
                             <input type="text" class="form-control" id="email" placeholder="Enter username" name="username" value={formData.username} onChange={handleChange} required />

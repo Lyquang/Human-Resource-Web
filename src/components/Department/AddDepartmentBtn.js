@@ -4,7 +4,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-export const AddDepartmentBtn = ({setDepartments}) => {
+export const AddDepartmentBtn = ({setDepartments, children}) => {
 
     const [showForm, setShowForm] = useState(false);
     const [formData, setFormData] = useState({
@@ -68,9 +68,14 @@ const openForm = () => {
 
 
   return (
+  // <span onClick={handleDelete} style={{ cursor: "pointer" }}>
+  //     {children || "🗑"}
+  //   </span>
 
     <div className="mt-4">
-        <button className="btn btn-success" onClick={openForm}></button>
+        <span className="btn btn-success" onClick={openForm}>
+          {children || "Thêm Phòng Ban"}
+      </span>
 
         {showForm && (
         <div
@@ -90,29 +95,29 @@ const openForm = () => {
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Tạo phòng ban mới</h5>
+                <h5 className="modal-title">Create New Department</h5>
                 <button type="button" className="close" onClick={closeForm}>
                   <span>&times;</span>
                 </button>
               </div>
               <div className="modal-body">
                 <form onSubmit={createDepartment}>
+                    
                   <div className="form-group">
-                    <label>Tên phòng ban:</label>
                     <input
                       type="text"
                       className="form-control"
+                      placeholder= "Enter Department Name"
                       name="name"
                       value={formData.name}
                       onChange={handleFormChange}
                       required
                     />
-                  </div>
-                  <div className="form-group">
-                    <label>Mã quản lý:</label>
+
                     <input
                       type="text"
                       className="form-control"
+                       placeholder= "Enter ManagerID"
                       name="managerId"
                       value={formData.managerId}
                       onChange={handleFormChange}
@@ -120,14 +125,14 @@ const openForm = () => {
                   </div>
                   <div className="d-flex justify-content-end">
                     <button type="submit" className="btn btn-primary mr-2">
-                      Tạo mới
+                      Create
                     </button>
                     <button
                       type="button"
                       className="btn btn-secondary"
                       onClick={closeForm}
                     >
-                      Hủy
+                      Cancel
                     </button>
                   </div>
                 </form>
