@@ -98,6 +98,10 @@ export const PersonelInforCard = () => {
           projectsCompleteNumber: data.projectsCompleteNumber || 0,
         });
 
+        localStorage.setItem("personelCode", data.personelCode);
+
+        
+
         setLoading(false);
       } catch (err) {
         setError(err.message);
