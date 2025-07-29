@@ -1,10 +1,3 @@
-.department-card {
-  border-radius: 18px;
-  display: absolute;
-  min-height: 220px;
-  min-width: 400px;
-  position: relative;
-}
 
 .card-image {
   width: 40%;
@@ -25,9 +18,17 @@
   position: absolute;
   top: 15px;
   right: -20px;
+  z-index: 100;
 }
 
 .avatar-icon img {
   width: 100%;
   height: 100%;
+}
+
+.dep-img {
+  background-size: cover;
+  background-position: center;
+  max-height: 100%;
+  max-width: 10rem;
 }

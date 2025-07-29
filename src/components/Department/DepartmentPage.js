@@ -4,7 +4,7 @@ import DepartmentCard from "./DepartmentCard";
 import axios from "../utils/axiosCustomize";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { MdAddHomeWork } from "react-icons/md";
-
+import "../../index.css"
 const DepartmentPage = () => {
   const [departments, setDepartments] = useState([]);
   const [error, setError] = useState(null);

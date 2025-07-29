@@ -15,6 +15,8 @@ import { IoIosCloudDone } from "react-icons/io";
 import { GiProgression } from "react-icons/gi";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../../index.css";
+import "./PersonelInfor.css"
 
 export const PersonelInforCard = () => {
   const [loading, setLoading] = useState(true);
@@ -100,6 +102,7 @@ export const PersonelInforCard = () => {
 
         localStorage.setItem("personelCode", data.personelCode);
 
+
         
 
         setLoading(false);
@@ -116,18 +119,16 @@ export const PersonelInforCard = () => {
   if (error) return <div className="alert alert-danger my-5">{error}</div>;
 
   return (
-    <div className="card bg-white rounded shadow mt-4 p-0 overflow-hidden">
+    <div className="card rounded shadow mt-4 p-0 overflow-hidden">
       <div className="row ">
         {/* LEFT PANEL */}
         <div
-          className="col-md-4 text-white text-center p-5"
-          style={{ minHeight: "25rem", backgroundColor: "rgb(104, 167, 255)" }}
+          className="col-md-4 text-center p-5 profile-img-background"
+
         >
-          <img
+          <img    className="rounded-circle img-fluid mb-3 flex-center mx-auto profile-img"
             src={profile.profileImage || DefaultPhoto}
             alt="Profile"
-            className="rounded-circle img-fluid mb-3 flex-center mx-auto"
-            style={{ width: "12rem", height: "12rem", objectFit: "cover" }}
           />
           <div className="mt-3">
             <AvatarUploadBtn setProfile={setProfile}>
@@ -138,7 +139,7 @@ export const PersonelInforCard = () => {
         </div>
 
         {/* RIGHT PANEL */}
-        <div className="col-md-8 p-4 bg-light" style={{ padding: "2rem" }}>
+        <div className="col-md-8 p-4 " style={{ padding: "2rem" }}>
           <div className="d-flex justify-content-between align-items-start mb-4">
             <div>
               <h1 className="mb-1 fw-bold" style={{ fontSize: "2.5rem" }}>
@@ -155,7 +156,7 @@ export const PersonelInforCard = () => {
 
           <div className="row">
             {/* Personal Info */}
-            <div className="col-md-6 mb-4">
+            <div className="col-md-7 mb-4">
               <h6
                 className="text-uppercase text-primary mb-3"
                 style={{ fontSize: "1.2rem", fontWeight: 600 }}
@@ -190,7 +191,7 @@ export const PersonelInforCard = () => {
             </div>
 
             {/* Work Info */}
-            <div className="col-md-6 mb-4">
+            <div className="col-md-5 mb-4 ">
               <h6
                 className="text-uppercase text-primary mb-3"
                 style={{ fontSize: "1.2rem", fontWeight: 600 }}

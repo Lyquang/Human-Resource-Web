@@ -73,15 +73,15 @@ const AdminAttendance = () => {
     return (
         <div className="admin-attendance">
             <div className="header">
-                <h2 className="title">Chấm công</h2>
+                <h2 className="title">Check attendance</h2>
                 <div className="filters">
-                    <label>Chọn tháng:</label>
+                    <label>Selected Month:</label>
                     <select value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
                         {[...Array(12).keys()].map(i => (
                             <option key={i + 1} value={i + 1}>{i + 1}</option>
                         ))}
                     </select>
-                    <label>Chọn năm:</label>
+                    <label>Selected Year:</label>
                     <input
                         type="number"
                         value={selectedYear}
@@ -91,13 +91,13 @@ const AdminAttendance = () => {
             </div>
 
             {employees.length === 0 ? (
-                <div className="no-data">Không có dữ liệu điểm danh.</div>
+                <div className="no-data">No have data.</div>
             ) : (
                 <div className="attendance-table">
                     <table>
                         <thead>
                             <tr>
-                                <th>Tên nhân viên</th>
+                                <th>Employee Name</th>
                                 {filteredDays.map(day => (
                                     <th key={day}>{day}</th>
                                 ))}

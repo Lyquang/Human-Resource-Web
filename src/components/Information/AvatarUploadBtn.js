@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { toast, ToastContainer } from "react-toastify";    
 
 export const AvatarUploadBtn = ({ setProfile,children }) => {
     const fileInputRef = useRef();
@@ -39,11 +40,12 @@ export const AvatarUploadBtn = ({ setProfile,children }) => {
           profileImage: data.imageUrl,
         }));
       }
-
-      alert("✅ Ảnh đại diện đã được cập nhật!");
+      toast.success("New avartar is updated")
+      // alert("✅ Ảnh đại diện đã được cập nhật!");
     } catch (err) {
-      console.error("Lỗi khi upload avatar:", err);
-      alert("❌ Đã xảy ra lỗi khi tải ảnh đại diện");
+      // console.error("Lỗi khi upload avatar:", err);
+      // alert("❌ Đã xảy ra lỗi khi tải ảnh đại diện");
+      toast.error("Error with uploading avatar")
     }
   };
 

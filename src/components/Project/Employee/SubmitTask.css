@@ -204,6 +204,78 @@
     background-color: #4caf50; 
 }
 
+.card-in-progress {
+  background-color: #f2eaa2; /* dark gray */
+  color: black;
+}
+
+.card-completed {
+  background-color: #bbf1c6; /* indigo-900 */
+  color: black;
+}
+
+.card-overdue {
+  background-color: #ffc107; /* warning yellow */
+  color: #212529;
+}
+
+.card-default {
+  background-color: #ffffff;
+  color: #000;
+}
+
+.card {
+  background-color: #fffdfc;
+  transition: transform 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h5 {
+  font-size: 1.125rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.35em 0.6em;
+  border-radius: 8px;
+}
+
+.upload-box {
+  height: 250px;
+  width: 100%;
+  max-width: 300px;
+  border: 2px dashed #9ec5fe;
+  background-color: #f8fbff;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+}
+
+.upload-box:hover {
+  background-color: #e9f3ff;
+  border-color: #4f9efc;
+  box-shadow: 0 6px 14px rgba(79, 158, 252, 0.2);
+}
+
+.upload-content {
+  text-align: center;
+  color: #4a4a4a;
+}
+
+.icon-upload-task {
+  font-size: 4rem;
+  color: #4f9efc;
+  margin-bottom: 10px;
+}
+
+
 
 
 

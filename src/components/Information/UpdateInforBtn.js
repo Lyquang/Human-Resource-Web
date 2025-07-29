@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { toast, ToastContainer } from "react-toastify";    
 
 const UpdateInforBtn = ({ profile, setProfile, children }) => {
   const [showModal, setShowModal] = useState(false);
@@ -53,10 +54,15 @@ const UpdateInforBtn = ({ profile, setProfile, children }) => {
         address: `${updatedData.street}, ${updatedData.city}`,
       }));
 
+      if( response.ok){
+        toast.success("Update information for you successfully")
+      }
+
       setShowModal(false);
     } catch (err) {
       console.error("Update failed:", err);
-      setError(err.message);
+      // setError(err.message);
+      toast.error(err);
     }
   };
 

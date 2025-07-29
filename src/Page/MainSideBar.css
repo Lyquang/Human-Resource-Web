@@ -1,18 +1,21 @@
-.sidebar-bg {
+.sidebar-main {
   background-color: #d8eefe;
-  color:#001858;
+  color: #094067;
   transition: width 0.3s;
+  transition: width 0.3s;
+  margin: 5%;
+  border-radius: 2%;
 }
-.sidebar-text{
+/* .sidebar-text{
     color:#001858;
-}
+} */
 .nav-link {
-  color: #ccc;
+  color: #094067;
   font-weight: 500;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    color: #3da9fc;
   }
 
   &.active {
@@ -20,4 +23,8 @@
     color: #fff !important;
     font-weight: 600;
   }
+}
+
+.logout-btn {
+  color: #094067;
 }

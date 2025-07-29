@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { toast } from "react-toastify";
 
 export const SendFileBtn = ({ taskId, task, setTasks }) => {
   const personelCode = localStorage.getItem("personelCode");
@@ -11,21 +12,22 @@ export const SendFileBtn = ({ taskId, task, setTasks }) => {
     formData.append("file", file);
     formData.append("personnelId", personelCode);
 
-   return axios.post("http://localhost:8080/api/tasks/submit", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },  
-    });
-     
-    // if( respose.ok){
-    //   alert("Submit Task Successfull")
-    //   return;
-    // }
+    try {
+      axios.post("http://localhost:8080/api/tasks/submit", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      toast.success("Submit Successful");
+    } catch (error) {
+      toast.error("Submit error");
+    }
   };
 
   const handleSendFiles = async () => {
     if (!task || !task.files || task.files.length === 0) {
-      alert("Please upload a file before submitting.");
+      toast.warning("Please upload a file before submitting.");
+      // alert("Please upload a file before submitting.");
       return;
     }
 
@@ -35,13 +37,11 @@ export const SendFileBtn = ({ taskId, task, setTasks }) => {
       console.log("Response: >>", response);
 
       setTasks((prevTasks) =>
-        prevTasks.map((t) =>
-          t.id === taskId ? { ...t, isSent: true } : t
-        )
+        prevTasks.map((t) => (t.id === taskId ? { ...t, isSent: true } : t))
       );
     } catch (error) {
-      console.error("Error uploading files:", error);
-      alert("An error occurred while uploading files.");
+      // console.error("Error uploading files:", error);
+      toast.error("An error occurred while uploading files.");
     }
   };
 

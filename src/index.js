@@ -1,56 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import reportWebVitals from "./reportWebVitals";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Attendance from "./components/Attendance/EmployeeAttendance";
-
-// import AdminAttendance from './components/Attendance/AdminAttendance';
-
 import store from "./store";
-
-// import Salary from './components/Salary/Salary';
-
 import { Provider } from "react-redux";
-
-import Training from "./components/Training/Training";
+//import component chưa sử dụng
+// import AdminTraining from "./components/Training/AdminTraining";
 import Statistic from "./components/Statistic/Statistic";
-
+// import Page
+import MainPage from "./Page/MainPage";
 import Home from "./components/Authentication/Home";
 import Login from "./components/Authentication/Login";
 import Signup from "./components/Authentication/Signup";
-
-//import admin
-
-import AdminSalary from "./components/Salary/AdminSalary";
-import AdminTraining from "./components/Training/AdminTraining";
-
-
-import AdminAttendance from "./components/Attendance/AdminAttendance";
-
-//import manager
-
-// import ManagerDevideTask from './components/Project/Manager/ManagerDivideTask';
-import ManagerProject from "./components/Project/Manager/ManagerProject";
-
-// import employee
-import MainPage from "./Page/MainPage";
+// import component of employee
 import AllEmployee from "./components/Employee/AllEmployee";
 import EDashboard from "./Page/EDashboard";
 import SubmitTask from "./components/Project/Employee/SubmitTask";
 import EmployeeAttendance from "./components/Attendance/EmployeeAttendance";
 import EmployeeTraining from "./components/Training/EmployeeTraining";
 import PersonelInfor from "./components/Information/PersonelInfor";
-
-// import EmployeeChat from './components/Chat/EmployeeNotifications';
-
-// import ManagerInfor from './components/Information/ManagerInfor';
+// import component of manager
 import ManagerNotification from "./components/Chat/Manager/ManagerNotification";
 import EmployeeNotification from "./components/Chat/Employee/EmployeeNotification";
+import ManagerProject from "./components/Project/Manager/ManagerProject";
+// import component of admin
 import DepartmentPage from "./components/Department/DepartmentPage";
+import AdminAttendance from "./components/Attendance/AdminAttendance";
+import AdminSalary from "./components/Salary/AdminSalary";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -62,16 +39,11 @@ root.render(
         <Route path="/signup" element={<Signup />} />
 
         <Route exact path="/login/admin" element={<MainPage />}>
-          {/* <Route index element={<ADashboard />}></Route> */}
           <Route path="employee" element={<AllEmployee />} />
           <Route path="admin-attendance" element={<AdminAttendance />} />
           <Route path="admin-salary" element={<AdminSalary />} />
           <Route path="department" element={<DepartmentPage />} />
-
-          <Route path="admin-training" element={<AdminTraining />} />
           <Route path="statistic" element={<Statistic />} />
-          {/* <Route path="chat" element={<EmployeeChat />} />
-           */}
         </Route>
 
         <Route exact path="/login/employee" element={<MainPage />}>
@@ -84,12 +56,8 @@ root.render(
         </Route>
 
         <Route exact path="/login/manager" element={<MainPage />}>
-          {/* <Route index element={<Dashboard />}></Route> */}
           <Route path="infor" element={<PersonelInfor/>} />
           <Route path="attendance" element={<EmployeeAttendance />} />
-
-          {/* <Route path="salary" element={<Salary />} /> */}
-
           <Route path="department" element={<DepartmentPage />} />
           <Route path="project" element={<ManagerProject />} />
           <Route path="training" element={<EmployeeTraining />} />

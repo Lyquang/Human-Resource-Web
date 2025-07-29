@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const DeleteFileBtn = ({ taskId, task, setTasks }) => {
   const handleDeleteFiles = async  (taskId) => {
@@ -19,11 +20,11 @@ export const DeleteFileBtn = ({ taskId, task, setTasks }) => {
               : task
           )
         );
-        alert(`File deleted for task ID: ${taskId}`);
+        toast.success(`File deleted for task ID: ${taskId}`);
       }
     } catch (error) {
-      console.error("Error deleting files:", error);
-      alert("An error occurred while deleting files.");
+      // console.error("Error deleting files:", error);
+      toast.error("An error occurred while deleting files.");
     }
   };
 

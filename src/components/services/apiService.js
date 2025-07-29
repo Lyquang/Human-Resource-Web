@@ -107,18 +107,7 @@ const getEmployeeAttendance = (code) => {
     });
 };
 
-const submitTask = (taskId, file, personnelId) => {
-    const formData = new FormData();
-    formData.append("taskId", taskId);
-    formData.append("file", file);
-    formData.append("personnelId", personnelId);
 
-    return axios.post("/tasks/submit", formData, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-    });
-}
 
 // Consolidated export
 export {
@@ -129,7 +118,6 @@ export {
     postCreateNewDepartment,
     postEmployeeCheckin,
     postEmployeeCheckout,
-    submitTask,
     getAllAccount,
     getAccountById,
     getAllPersonel,

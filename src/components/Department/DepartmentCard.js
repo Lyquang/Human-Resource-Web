@@ -5,6 +5,7 @@ import { MdDelete, } from "react-icons/md";
 import DeleteDepartmentBtn from "./DeleteDepartmentBtn";
 import "./DepartmentCard.css"; // Optional: external CSS for cleaner JSX
 import DefaultAvatar from "../assets/defaut_pho.png"; // Default avatar icon
+import "../../index.css"
 
 const DepartmentCard = ({ department }) => {
 
@@ -35,14 +36,10 @@ const DepartmentCard = ({ department }) => {
 
   return (
     <div className="col-md-6 col-lg-4 mb-4">
-      <div className="department-card d-flex rounded shadow-lg overflow-hidden">
+      <div className="d-flex rounded shadow-lg overflow-hidden">
         {/* Left Image Area */}
-        <div className="card-image" style={{
+        <div className="card-image dep-img" style={{
         backgroundImage: `url(${randomImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        maxHeight: '18rem',
-        maxWidth: '10rem',
       }}>
           <div className="avatar-icon">
             <img src={DefaultAvatar} alt="Avatar" />
@@ -50,7 +47,7 @@ const DepartmentCard = ({ department }) => {
         </div>
 
         {/* Right Info Area */}
-        <div className="card-info px-3 py-3 bg-white flex-grow-1" style={{marginLeft: '10px'}}>
+        <div className="card  px-3 py-3 flex-grow-1 card-text" style={{marginLeft: '10px'}}>
 
           <h5 className="fw-bold display-7">{department.departmentName}</h5>
           <p className="mb-2 display-7 fw-bold " style={{ fontSize: "16px" }}>

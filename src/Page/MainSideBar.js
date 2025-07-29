@@ -6,7 +6,7 @@ import { BiLogOut, BiChat } from "react-icons/bi";
 import Defaut_Profile from "../components/assets/defaut_pho.png";
 import { IoMdCloudUpload } from "react-icons/io";
 import { FaArrowRight } from "react-icons/fa";
-import { MdCancel } from "react-icons/md";
+import { FaArrowLeft } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./MainSideBar.css";
 
@@ -127,12 +127,10 @@ function MainSideBar({ accountId, token }) {
 
   return (
     <div
-      className={`sidebar-bg d-flex flex-column vh-100 shadow-sm`}
+      className={`sidebar-main d-flex flex-column vh-100 shadow-sm`}
       style={{
-        width: expanded ? "250px" : "80px",
-        transition: "width 0.3s",
-        margin: "8px",
-        borderRadius: "15px",
+        width: expanded ? "90%" : "50%",
+       
       }}
     >
       {/* Header  */}
@@ -143,7 +141,7 @@ function MainSideBar({ accountId, token }) {
           style={{ fontSize: "1.5rem", color: "#3da9fc" }}
           onClick={() => setExpanded(!expanded)}
         >
-          {expanded ? <MdCancel /> : <FaArrowRight />}
+          {expanded ?  <FaArrowLeft />: <FaArrowRight />}
         </button>
       </div>
 
@@ -164,8 +162,8 @@ function MainSideBar({ accountId, token }) {
 
       {empSidebar && (
         <div
-          className="nav sidebar-bg flex-column mt-3 px-2"
-          style={{ fontSize: "1.1rem" }}
+          className="nav sidebar-main flex-column mt-3 px-2"
+          style={{ fontSize: "1rem" }}
         >
           {[
             { to: "/login/employee", icon: <FaHome />, text: " Home" },
@@ -181,38 +179,32 @@ function MainSideBar({ accountId, token }) {
               text: " Submit Task",
             },
             { to: "notification", icon: <BiChat />, text: " Notifications" },
+            {
+              to: "/",
+              icon: <BiLogOut />,
+              text: " Log Out",
+            },
           ].map(({ to, icon, text }, idx) => (
             <NavLink
               key={idx}
               to={to}
-              className="nav-link d-flex align-items-center py-2 rounded px-2 my-1"
+              className="logout-btn nav-link d-flex align-items-center py-2 rounded px-2 my-1"
               activeClassName="active"
               style={{ transition: "background 0.3s" }}
             >
-              <span className="mr-2" style={{ fontSize: "1.5rem" }}>
+              <span className="mr-2" style={{ fontSize: "100%" }}>
                 {icon}
               </span>
               {expanded && <span style={{ marginLeft: "10px" }}>{text}</span>}
             </NavLink>
           ))}
-
-          <div className="mt-auto mb-3">
-            <NavLink
-              to="/"
-              className="nav-link d-flex align-items-center text-light py-2 rounded px-2 my-1"
-              activeClassName="active"
-            >
-              <BiLogOut className="mr-2" style={{ fontSize: "1.2rem" }} />
-              {expanded && <span style={{ marginLeft: "10px" }}>Log Out </span>}
-            </NavLink>
-          </div>
         </div>
       )}
 
       {manaSidebar && (
         <div
           className="nav sidebar-bg flex-column mt-3 px-2"
-          style={{ fontSize: "1.1rem" }}
+          style={{ fontSize: "1rem" }}
         >
           {[
             { to: "/", icon: <FaHome />, text: " Home" },
@@ -227,6 +219,11 @@ function MainSideBar({ accountId, token }) {
               icon: <IoMdCloudUpload />,
               text: " Notifications",
             },
+            {
+              to: "/",
+              icon: <BiLogOut />,
+              text: " Log Out",
+            },
           ].map(({ to, icon, text }, idx) => (
             <NavLink
               key={idx}
@@ -236,23 +233,19 @@ function MainSideBar({ accountId, token }) {
               activeClassName="active"
               style={{ transition: "background 0.3s" }}
             >
-              <span className="mr-2" style={{ fontSize: "1.5rem" }}>
+              <span
+                className="mr-2"
+                style={{ fontSize: "100%", color: "#094067" }}
+              >
                 {icon}
               </span>
-              {expanded && <span style={{ marginLeft: "10px" }}>{text}</span>}
+              {expanded && (
+                <span style={{ marginLeft: "10px", color: "#094067" }}>
+                  {text}
+                </span>
+              )}
             </NavLink>
           ))}
-
-          <div className="mt-auto mb-3">
-            <NavLink
-              to="/"
-              className="nav-link d-flex align-items-center text-light py-2 rounded px-2 my-1"
-              activeClassName="active"
-            >
-              <BiLogOut className="mr-2" style={{ fontSize: "1.2rem" }} />
-              {expanded && <span style={{ marginLeft: "10px" }}>Log Out </span>}
-            </NavLink>
-          </div>
         </div>
       )}
 
@@ -279,6 +272,11 @@ function MainSideBar({ accountId, token }) {
               icon: <IoMdCloudUpload />,
               text: " Salary & Benefits",
             },
+             {
+              to: "/",
+              icon: <BiLogOut />,
+              text: " Log Out",
+            },
           ].map(({ to, icon, text }, idx) => (
             <NavLink
               key={idx}
@@ -288,23 +286,12 @@ function MainSideBar({ accountId, token }) {
               activeClassName="active"
               style={{ transition: "background 0.3s" }}
             >
-              <span className="mr-2" style={{ fontSize: "1.5rem" }}>
+              <span className="mr-2" style={{ fontSize: "100%" }}>
                 {icon}
               </span>
               {expanded && <span style={{ marginLeft: "10px" }}>{text}</span>}
             </NavLink>
           ))}
-
-          <div className="mt-auto mb-3">
-            <NavLink
-              to="/"
-              className="nav-link d-flex align-items-center text-light py-2 rounded px-2 my-1"
-              activeClassName="active"
-            >
-              <BiLogOut className="mr-2" style={{ fontSize: "1.2rem" }} />
-              {expanded && <span style={{ marginLeft: "10px" }}>Log Out </span>}
-            </NavLink>
-          </div>
         </div>
       )}
     </div>
