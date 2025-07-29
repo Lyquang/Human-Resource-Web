@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";      
 import "react-toastify/dist/ReactToastify.css";
 import "./EmployeeAttendance.scss";
 import { CheckInBtn } from "./CheckInBtn";
@@ -134,8 +134,8 @@ const EmployeeAttendance = () => {
                 className="calendar-day"
                 style={{
                   backgroundColor: color,
-                  margin:"3px",
-                  height:"15%",
+                margin:"3px",
+                  height:"16%",
                   width:"16%",
                   borderRadius: "8px",
                   color: color === "transparent" ? "#000" : "#fff",
