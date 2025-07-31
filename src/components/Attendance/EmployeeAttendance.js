@@ -97,7 +97,7 @@ const EmployeeAttendance = () => {
   };
 
   return (
-    <div className="container employee-attendance">
+    <div className="container-fluid employee-attendance">
       <ToastContainer />
       <div className="title">My Attendance</div>
       <div className="filters">

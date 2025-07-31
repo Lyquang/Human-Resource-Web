@@ -3,6 +3,7 @@
   animation-delay: var(--animation-delay);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 10%;
 }
 @keyframes fadeIn {
   from {
@@ -15,9 +16,16 @@
   }
 }
 
+
 .card-img {
   object-fit: cover;
-  height: 70px;
-  width: 70px;
+  height: 80px;
+  width: 80px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid green;
+}
+
+.card-ava{
+  border-right: solid 1px silver;
+  margin : 10px 0px 10px 0px;
 }

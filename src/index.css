@@ -132,6 +132,9 @@
   .card{
     background-color: #2b2c2c;
   }
+  .table{
+    color:white
+  }
 }
 
 button {

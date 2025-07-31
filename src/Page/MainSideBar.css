@@ -4,8 +4,10 @@
   transition: width 0.3s;
   transition: width 0.3s;
   margin: 5%;
-  border-radius: 2%;
+  border-radius: 5%;
+  box-shadow: small;
 }
+
 /* .sidebar-text{
     color:#001858;
 } */

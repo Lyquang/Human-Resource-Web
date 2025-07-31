@@ -129,8 +129,7 @@ function MainSideBar({ accountId, token }) {
     <div
       className={`sidebar-main d-flex flex-column vh-100 shadow-sm`}
       style={{
-        width: expanded ? "90%" : "50%",
-       
+        width: expanded ? "100%" : "50%",
       }}
     >
       {/* Header  */}

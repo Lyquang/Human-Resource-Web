@@ -12,9 +12,7 @@
 
 .filters {
   display: flex;
-  justify-content: end;
-    margin: 30px;
-    gap: 20px;
+  justify-content: start;
 }
 
 select,
@@ -31,6 +29,7 @@ font-size: 2rem;
 
 .calendar {
     display: flex;
+    justify-content: center;
 }
 
 .calendar-row {

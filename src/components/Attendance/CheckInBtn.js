@@ -13,7 +13,7 @@ export const CheckInBtn = ({ employeeCode, onSuccess }) => {
       toast.success("You have successfully checked in!");
       if (onSuccess) onSuccess();
 
-      alert("Check-in successful!");
+      // alert("Check-in successful!");
       //  fetchAttendanceData(selectedMonth, selectedYear);
     } catch (err) {
       if (err.response?.data?.code === 2002) {

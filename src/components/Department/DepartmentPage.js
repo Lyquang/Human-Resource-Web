@@ -31,11 +31,15 @@ const DepartmentPage = () => {
                 );
 
                 const managerData = managerRes.data?.result;
+                // console.log("manadata", managerData);
                 const managerName = managerData
                   ? `${managerData.lastName} ${managerData.firstName}`
                   : "Không rõ";
 
-                return { ...dept, managerName };
+                const managerAvatar = managerData.avatar ;
+                // console.log("managerava",managerAvatar );
+
+                return { ...dept, managerName, managerAvatar };
               } catch (error) {
                 console.warn(
                   `Không lấy được tên cho managerId=${dept.managerId}`

@@ -6,6 +6,8 @@ import DeleteDepartmentBtn from "./DeleteDepartmentBtn";
 import "./DepartmentCard.css"; // Optional: external CSS for cleaner JSX
 import DefaultAvatar from "../assets/defaut_pho.png"; // Default avatar icon
 import "../../index.css"
+import { EmployeeBelongDep } from "./EmployeeBelongDep";
+import { IoIosPeople } from "react-icons/io";
 
 const DepartmentCard = ({ department }) => {
 
@@ -42,7 +44,7 @@ const DepartmentCard = ({ department }) => {
         backgroundImage: `url(${randomImage})`,
       }}>
           <div className="avatar-icon">
-            <img src={DefaultAvatar} alt="Avatar" />
+            <img src= {department.managerAvatar || DefaultAvatar} alt="Avatar" />
           </div>
         </div>
 
@@ -66,6 +68,14 @@ const DepartmentCard = ({ department }) => {
             <DeleteDepartmentBtn departmentId={department.departmentId} >
                 <MdDelete style={{ cursor: "pointer", color:"red"}}  />
             </DeleteDepartmentBtn>
+
+            <EmployeeBelongDep departmentId={department.departmentId} >
+                <IoIosPeople style={{ cursor: "pointer", color:"blue"}}  />
+            </EmployeeBelongDep>
+
+
+
+
           </div>
         </div>
       </div>
