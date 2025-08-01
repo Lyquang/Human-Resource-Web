@@ -6,9 +6,13 @@ import DefaultPhoto from "../assets/default_ava2.webp"; // Adjust the path as ne
 import "../../index.css";
 import "./AllEmployee.css";
 import { IoIosInformationCircle } from "react-icons/io";
+import  ModalOfEachEmployee  from "./ModalOfEachEmployee";
+import { useState } from "react";
 const getRoleColor = (role) => (role === "EMPLOYEE" ? "#0004fc" : "#fc0000");
 
 const EmployeeCard = ({ employee, index, onSettingClick }) => {
+
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className="col" style={{ animationDelay: `${index * 0.2}s` }}>
       <div className="profile-card card ">
@@ -28,9 +32,13 @@ const EmployeeCard = ({ employee, index, onSettingClick }) => {
               {/* Phần tên chiếm 1/5 */}
               <div className="d-flex align-items-center justify-content-between">
                 <h5 className="card-title mb-0">
-                   {employee.code} - {employee.lastName} {employee.firstName} 
+                  {employee.code} - {employee.lastName} {employee.firstName}
                 </h5>
-                <IoIosInformationCircle style={{fontSize:"2rem", color:"silver"}} />
+
+                <IoIosInformationCircle
+                  style={{ cursor: "pointer", color: "blue", fontSize: "1.5rem" }}
+                  onClick={() => setShowModal(true)}
+                />
               </div>
 
               {/* Phần chức vụ chiếm 1/5, chỉ tô màu nền trong phạm vi chữ */}
@@ -73,7 +81,13 @@ const EmployeeCard = ({ employee, index, onSettingClick }) => {
           </div>
         </div>
       </div>
+       <ModalOfEachEmployee
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        employee={employee}
+      />
     </div>
+    
   );
 };
 
