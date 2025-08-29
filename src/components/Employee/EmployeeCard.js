@@ -32,7 +32,7 @@ const EmployeeCard = ({ employee, index, onSettingClick }) => {
               {/* Phần tên chiếm 1/5 */}
               <div className="d-flex align-items-center justify-content-between">
                 <h5 className="card-title mb-0">
-                  {employee.code} - {employee.lastName} {employee.firstName}
+                {employee.lastName} {employee.firstName}
                 </h5>
 
                 <IoIosInformationCircle
@@ -92,3 +92,28 @@ const EmployeeCard = ({ employee, index, onSettingClick }) => {
 };
 
 export default EmployeeCard;
+
+
+            // "personelCode": 7,
+            // "firstName": "Quang",
+            // "lastName": "2212737-Ly Thanh Nhat",
+            // "email": "quang.ly2004bkhcm@hcmut.edu.vn",
+            // "phone": "0856141590",
+            // "city": " Bình Thuận",
+            // "street": "Hương Sơ",
+            // "role": null,
+            // "avatar": "http://res.cloudinary.com/dkamugos5/image/upload/v1743590761/vf2zd1bw5hpah8ebmr45.png",
+            // "gender": "MALE",
+            // "position": "EMPLOYEE",
+            // "departmentName": "Phòng Kinh Doanh",
+            // "taskList": [],
+            // "tasksCompleteNumber": 0,
+            // "projectList": [],
+            // "projectInvolved": 0
+            // "projectInvolved": 0
+            // "skills": [SoftWare, Mobile, Friendly,...]
+            // "decription": " toi toi day de tim kiem thu thach moi, luong cao, on dinh"
+            // "Facebook": "https://www.facebook.com/nhan.phunghoanghuu"
+            // "Ins": "https://www.facebook.com/nhan.phunghoanghuu"
+            // "Github": "https://www.facebook.com/nhan.phunghoanghuu"
+            // "Linkedin": "https://www.facebook.com/nhan.phunghoanghuu"

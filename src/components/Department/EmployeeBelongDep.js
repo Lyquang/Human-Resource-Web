@@ -33,7 +33,7 @@ export const EmployeeBelongDep = ({ departmentId, children }) => {
         <Modal.Header closeButton>
           <Modal.Title>Nhân viên trong phòng ban</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ maxHeight: "200%", overflowY: "auto" }}>
+        <Modal.Body style={{ height: "300%", overflowY: "auto" }}>
           {error && <div className="text-danger">Lỗi: {error}</div>}
           {employees.length > 0 ? (
             <div className="row row-cols-1 row-cols-md-2 g-4">
@@ -50,11 +50,6 @@ export const EmployeeBelongDep = ({ departmentId, children }) => {
             <div>Không có nhân viên nào.</div>
           )}
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Đóng
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

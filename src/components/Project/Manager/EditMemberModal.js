@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./EditMemberModal.scss";
 import { getAllPersonel, getAllProjects } from "../../services/apiService";
 import axios from "axios";
+import Loading from "../../Loading/Loading";
 
 const EditMemberModal = ({ onClose, onSave, projectDetails }) => {
     const [employees, setEmployees] = useState([]);
@@ -151,7 +152,7 @@ const EditMemberModal = ({ onClose, onSave, projectDetails }) => {
                         </div>
                     ) : (
                         <>
-                            <h5>Danh sách nhân viên trong dự án: {projectDetails?.projectName}</h5>
+                            <h5>List of Employee in Project: {projectDetails?.projectName}</h5>
                             <button className="close-btn btn-primary" onClick={onClose}>
                                 x
                             </button>
@@ -171,12 +172,12 @@ const EditMemberModal = ({ onClose, onSave, projectDetails }) => {
                                                 className="remove-member-btn btn-danger ms-3"
                                                 onClick={() => handleRemoveMember(member.personelCode)}
                                             >
-                                                Xóa
+                                                Delete
                                             </button>
                                         </li>
                                     ))
                                 ) : (
-                                    <p>Không có nhân viên nào trong dự án này.</p>
+                                    <p>Not have employees in this project.</p>
                                 )}
                             </ul>
 
@@ -189,14 +190,14 @@ const EditMemberModal = ({ onClose, onSave, projectDetails }) => {
                                     className="add-member-input"
                                 />
                                 <button onClick={handleAddMember} className="add-member-btn btn-primary">
-                                    Thêm nhân viên
+                                    Add Member
                                 </button>
                             </div>
 
                             {message && <p className="message">{message}</p>}
                             <div className="modal-footer">
                                 <button onClick={handleSave} className="save-btn btn-primary">
-                                    Lưu
+                                    Save
                                 </button>
                             </div>
                         </>

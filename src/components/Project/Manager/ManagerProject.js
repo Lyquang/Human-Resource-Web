@@ -1,42 +1,9 @@
-// if (isLoading) {
-//     return (
-//         <div className="loading-screen">
-//             <div className="spinner"></div>
-//             <p>Đang tải dữ liệu, vui lòng chờ...</p>
-//         </div>
-//     );
-// }
 
-// const handleProjectClick = (project) => {
-//     if (project?.id) {
-//         fetchProjectDetails(project.id); // Lấy thông tin dự án qua API
-//     }
-//     setSelectedProject(true); // Mở modal
-// };
-
-// const handleSaveMembers = async (updatedMembers, participants) => {
-//     setProjects((prevProjects) =>
-//         prevProjects.map((project) => {
-//             if (project.id === currentProjectId) {
-//                 return { ...project, participants };
-//             }
-//             return project;
-//         })
-//     );
-//     setIsMemberModalOpen(false);
-
-// };
-
-// const employees = [
-//     { code: 'E001', name: 'Nguyen Van A' },
-//     { code: 'E002', name: 'Nguyen Van T' },
-//     { code: 'E003', name: 'Le Van C' },
-//     { code: 'E004', name: 'Vo Le' }
-// ];
 import React, { useState, useEffect } from "react";
 import { CreateProjectBtn } from "./CreateProjectBtn";
 import { ProjectCard } from "./ProjectCard";
 import axios from "axios";
+import Loading from "../../Loading/Loading";
 
 const ManagerProject = () => {
   const [projects, setProjects] = useState([]);
@@ -95,7 +62,7 @@ const ManagerProject = () => {
       </div>
 
       {isLoading ? (
-        <div>Đang tải dữ liệu...</div>
+        <div><Loading/></div>
       ) : (
         <div className="row g-3 gy-5 py-3 row-deck">
           {projects.map((project, index) => (

@@ -31,10 +31,10 @@ const CreateProjectForm = ({ onClose, onSave }) => {
 
     return (
         <div className="create-project-form">
-            <h3>Tạo Dự Án Mới</h3>
+            <h3>Add New Project</h3>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="projectName">Tên Dự Án</label>
+                    <label htmlFor="projectName">Project Name</label>
                     <input
                         type="text"
                         id="projectName"
@@ -44,7 +44,7 @@ const CreateProjectForm = ({ onClose, onSave }) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="projectDescription">Mô Tả Dự Án</label>
+                    <label htmlFor="projectDescription">Project Description</label>
                     <textarea
                         id="projectDescription"
                         value={projectDescription}
@@ -53,7 +53,7 @@ const CreateProjectForm = ({ onClose, onSave }) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="departmentId">Mã Phòng Ban</label>
+                    <label htmlFor="departmentId">Department ID:</label>
                     <input
                         type="number"
                         id="departmentId"
@@ -62,8 +62,8 @@ const CreateProjectForm = ({ onClose, onSave }) => {
                         required
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Tạo Dự Án</button>
-                <button type="button" className="btn btn-secondary" onClick={onClose}>Hủy</button>
+                <button type="submit" className="btn btn-primary">Add New Project</button>
+                <button type="button" className="btn btn-secondary" onClick={onClose}>Cancel</button>
             </form>
         </div>
     );

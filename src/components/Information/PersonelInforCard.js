@@ -16,7 +16,8 @@ import { GiProgression } from "react-icons/gi";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../index.css";
-import "./PersonelInfor.css"
+import "./PersonelInfor.css";
+import Loading from "../Loading/Loading";
 
 export const PersonelInforCard = () => {
   const [loading, setLoading] = useState(true);
@@ -99,7 +100,7 @@ export const PersonelInforCard = () => {
           projectList: data.projectList || [],
           projectsCompleteNumber: data.projectsCompleteNumber || 0,
         });
-
+        // lưu personelCode vào localStorage để dùng chung
         localStorage.setItem("personelCode", data.personelCode);
 
 
@@ -115,7 +116,7 @@ export const PersonelInforCard = () => {
     fetchPersonelData();
   }, []);
 
-  if (loading) return <div className="text-center my-5">Loading...</div>;
+  if (loading) return <div><Loading/></div>
   if (error) return <div className="alert alert-danger my-5">{error}</div>;
 
   return (

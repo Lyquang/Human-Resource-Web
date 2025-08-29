@@ -1,19 +1,19 @@
-import React from 'react'
-import { useState } from 'react';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import { useState } from "react";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-
-export const AddDepartmentBtn = ({setDepartments, children}) => {
-
-    const [showForm, setShowForm] = useState(false);
-    const [formData, setFormData] = useState({
+export const AddDepartmentBtn = ({ setDepartments, children }) => {
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
     name: "",
     managerId: "",
   });
-    const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
 
-const openForm = () => {
+  const openForm = () => {
     setShowForm(true);
     setFormData({
       name: "",
@@ -29,7 +29,7 @@ const openForm = () => {
     });
   };
 
-    const handleFormChange = (e) => {
+  const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -39,45 +39,47 @@ const openForm = () => {
 
   const createDepartment = async (e) => {
     e.preventDefault();
-  
+
     try {
       const payload = {
         departmentName: formData.name,
         managerId: formData.managerId ? Number(formData.managerId) : null, // Ensure managerId is numeric or null
       };
-  
-      const response = await axios.post("http://localhost:8080/api/departments/create", payload, {
-        headers: { "Content-Type": "application/json" },
-    });
-  
+
+      const response = await axios.post(
+        "http://localhost:8080/api/departments/create",
+        payload,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
       if (response && response.data && response.data.result) {
         // Add the newly created department to the state
         setDepartments((prevDepartments) => [
           ...prevDepartments,
           response.data.result,
         ]);
-        alert("Department created successfully:", response.data.result);
+        // alert("Department created successfully:", response.data.result);
+        toast.success("Department created successfully!");
       }
     } catch (err) {
       setError(err.message);
-      alert("Error creating department:", err.message);
+      // alert("Error creating department:", err.message);
+      toast.error("Error creating department: ", err.message);
     }
-  
+
     closeForm();
   };
 
-
   return (
-  // <span onClick={handleDelete} style={{ cursor: "pointer" }}>
-  //     {children || "🗑"}
-  //   </span>
-
     <div className="mt-4">
-        <span className="btn btn-success" onClick={openForm}>
-          {children || "Thêm Phòng Ban"}
+      <ToastContainer />
+      <span className="btn btn-success" onClick={openForm}>
+        {children || "Thêm Phòng Ban"}
       </span>
 
-        {showForm && (
+      {showForm && (
         <div
           className="modal fade show d-block"
           tabIndex="-1"
@@ -102,12 +104,11 @@ const openForm = () => {
               </div>
               <div className="modal-body">
                 <form onSubmit={createDepartment}>
-                    
                   <div className="form-group">
                     <input
                       type="text"
                       className="form-control"
-                      placeholder= "Enter Department Name"
+                      placeholder="Enter Department Name"
                       name="name"
                       value={formData.name}
                       onChange={handleFormChange}
@@ -117,7 +118,7 @@ const openForm = () => {
                     <input
                       type="text"
                       className="form-control"
-                       placeholder= "Enter ManagerID"
+                      placeholder="Enter ManagerID"
                       name="managerId"
                       value={formData.managerId}
                       onChange={handleFormChange}
@@ -142,6 +143,5 @@ const openForm = () => {
         </div>
       )}
     </div>
-      
-  )
+  );
 };

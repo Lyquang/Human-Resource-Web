@@ -1,11 +1,17 @@
 import React from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Toast } from 'primereact/toast';
+        
+        
 
 export const DeleteDepartmentBtn = ({ departmentId, children }) => {
   const handleDelete = async () => {
     if (!departmentId) {
-      alert("❌ Thiếu mã phòng ban!");
+      // alert("❌ Thiếu mã phòng ban!");
+      toast.error("Thiếu mã phòng ban!");
       return;
     }
 
@@ -30,13 +36,16 @@ export const DeleteDepartmentBtn = ({ departmentId, children }) => {
           );
 
           if (removeDepartmentRes.status === 200) {
-            alert("✅ Đã xóa phòng ban thành công!");
+            // alert("✅ Đã xóa phòng ban thành công!");
+            toast.success("Delete Department successfully!");
             window.location.reload(); // Or call a prop like onDeleteSuccess() to re-fetch
           } else {
-            alert("❌ Không thể xóa phòng ban.");
+            // alert("❌ Không thể xóa phòng ban.");
+            toast.error("Cannot delete the department.");
           }
         } else {
-          alert("❌ Không thể xóa trưởng phòng.");
+          // alert("❌ Không thể xóa trưởng phòng.");
+          toast.error("Cannot remove the manager.");
         }
       } catch (error) {
         console.error("❌ Error deleting the department:", error);
@@ -44,7 +53,8 @@ export const DeleteDepartmentBtn = ({ departmentId, children }) => {
           console.log("📥 Server response code:", error.response.status);
           console.log("📥 Server response data:", error.response.data);
         }
-        alert("❌ Đã xảy ra lỗi khi xóa phòng ban.");
+        // alert("❌ Đã xảy ra lỗi khi xóa phòng ban.");
+        toast.error("Error occurred while deleting the department.");
       }
     }
   };

@@ -13,7 +13,7 @@ export const CreateProjectBtn = ({setProjects,}) => {
   return (
     <div className="action-buttons">
       <button onClick={handleCreateProjectClick} className="btn btn-primary">
-        Tạo project
+        Add New Project
       </button>
             {isCreateProjectModalOpen && (
                     <EditProject

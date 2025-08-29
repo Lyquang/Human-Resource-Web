@@ -2,11 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./EmployeeNotification.scss";
 import axios from "axios";
 import { NotificationBar } from "./NotificationBar";
+import Loading from "../../Loading/Loading";
 
 const EmployeeNotification = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentNotification = notifications.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  const totalPages = Math.ceil(notifications.length / itemsPerPage);
 
   // Fetch notifications based on personnelCode
 
@@ -57,18 +67,76 @@ const EmployeeNotification = () => {
     fetchNotifications();
   }, []);
 
-  if (loading) return <div>Loading notifications...</div>;
+  if (loading)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="notifications-container">
       <h2>Thông báo</h2>
-      <div className="notifications">
-        {notifications.map((notification) => (
-          <NotificationBar key={notification.id} notification={notification} fetchNotifications={fetchNotifications} 
-          setNotifications ={setNotifications} />
-        ))}
-      </div>
+      {notifications.length === 0 ? (
+        <h1> No notification founds</h1>
+      ) : (
+        <>
+          <div className="notifications">
+            {currentNotification.map((notification) => (
+              <NotificationBar
+                key={notification.id}
+                notification={notification}
+                fetchNotifications={fetchNotifications}
+                setNotifications={setNotifications}
+              />
+            ))}
+          </div>
+
+          {/* Pagination Controls */}
+          <nav className="d-flex justify-content-center mt-4">
+            <ul className="pagination">
+              <li
+                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                  Previous
+                </button>
+              </li>
+              {Array.from({ length: totalPages }, (_, i) => (
+                <li
+                  key={i}
+                  className={`page-item ${
+                    currentPage === i + 1 ? "active" : ""
+                  }`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => setCurrentPage(i + 1)}
+                  >
+                    {i + 1}
+                  </button>
+                </li>
+              ))}
+              <li
+                className={`page-item ${
+                  currentPage === totalPages ? "disabled" : ""
+                }`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </>
+      )}
     </div>
   );
 };

@@ -1,14 +1,15 @@
-
 import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import "../../index.css";
 import "./AllEmployee.css";
+import Default_Profile from "../assets/default_ava2.webp";
+import { FaTasks } from "react-icons/fa";
 
 const ModalOfEachEmployee = ({ show, onClose, employee }) => {
   if (!employee) return null;
 
   const {
-    personelCode,
+    code,
     firstName,
     lastName,
     email,
@@ -18,9 +19,7 @@ const ModalOfEachEmployee = ({ show, onClose, employee }) => {
     gender,
     position,
     departmentName,
-    taskList,
     tasksCompleteNumber,
-    projectList,
     projectInvolved,
     avatar,
   } = employee;
@@ -30,62 +29,111 @@ const ModalOfEachEmployee = ({ show, onClose, employee }) => {
       show={show}
       onHide={onClose}
       centered
-      dialogClassName="full-width-modal"
+      dialogClassName="custom-modal-width"
     >
-      <Modal.Header closeButton>
-        <Modal.Title>Thông tin chi tiết nhân viên</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="row">
-          <div className="col-md-3 text-center">
+      <Modal.Body className="p-0 rounded-4 overflow-hidden employee-modal-bg text-white">
+        <div className="p-4 position-relative text-center">
+          {/* Avatar */}
+          <div className="d-flex justify-content-center mb-3">
             <img
-              src={avatar || "https://via.placeholder.com/150"}
+              src={avatar || Default_Profile}
               alt="avatar"
-              className="img-fluid rounded-circle mb-3"
-              style={{ maxWidth: "150px" }}
+              className="rounded-circle border border-3 border-white"
+              style={{ width: "100px", height: "100px", objectFit: "cover" }}
             />
-            <h5>{lastName} {firstName}</h5>
-            <p className="text-muted">{position}</p>
           </div>
-          <div className="col-md-9">
-            <p><strong>Mã nhân viên:</strong> {personelCode}</p>
-            <p><strong>Email:</strong> {email}</p>
-            <p><strong>SĐT:</strong> {phone}</p>
-            <p><strong>Giới tính:</strong> {gender === "MALE" ? "Nam" : "Nữ"}</p>
-            <p><strong>Địa chỉ:</strong> {street}, {city}</p>
-            <p><strong>Phòng ban:</strong> {departmentName || "Không có"}</p>
-            <p><strong>Số task đã hoàn thành:</strong> {tasksCompleteNumber}</p>
-            <p><strong>Số dự án tham gia:</strong> {projectInvolved}</p>
 
-            {taskList && taskList.length > 0 && (
-              <>
-                <strong>Danh sách công việc:</strong>
-                <ul>
-                  {taskList.map((task, idx) => (
-                    <li key={idx}>{task}</li>
-                  ))}
-                </ul>
-              </>
-            )}
+          {/* Name & Role */}
+          <h5 className="fw-bold">
+            {lastName} {firstName}
+          </h5>
+          <p className="text-light">
+            {position || departmentName || "Unknown"}
+          </p>
 
-            {projectList && projectList.length > 0 && (
-              <>
-                <strong>Dự án đã tham gia:</strong>
-                <ul>
-                  {projectList.map((project, idx) => (
-                    <li key={idx}>{project}</li>
-                  ))}
-                </ul>
-              </>
-            )}
+          {/* Badge Info */}
+          <div className="d-flex justify-content-center flex-wrap gap-2 mb-3">
+            <span className="badge-custom">
+              {gender === "MALE" ? "Nam" : "Nữ"}
+            </span>
+            <span className="badge-custom">{phone || "No Phone"}</span>
+            <span className="badge-custom">{email || "No Email"}</span>
+            <span className="badge-custom">
+              {`${street}, ${city}` || "No Address"}
+            </span>
+          </div>
+
+          {/* Stats */}
+          <div className="d-flex justify-content-around text-center text-white my-4">
+            <div>
+              <div className="d-flex justify-content-center align-items-center gap-2 mb-1">
+                <i className="bi bi-check2-circle"></i>
+                <h6 className="mb-0 fw-bold">{tasksCompleteNumber || "0"}</h6>
+              </div>
+              <small>Tasks Done</small>
+            </div>
+            <div>
+              <div className="d-flex justify-content-center align-items-center gap-2 mb-1">
+                <i className="bi bi-kanban-fill"></i>
+                <h6 className="mb-0 fw-bold">{projectInvolved || 0}</h6>
+              </div>
+              <small>Projects</small>
+            </div>
+            <div>
+              <div className="d-flex justify-content-center align-items-center gap-2 mb-1">
+                <i className="bi bi-hash"></i>
+                <h6 className="mb-0 fw-bold">{code || 0}</h6>
+              </div>
+              <small>Code</small>
+            </div>
+          </div>
+
+          <div className="d-flex justify-content-around text-center text-white my-4">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon"
+            >
+              <i className="bi bi-facebook"></i>
+            </a>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon"
+            >
+              <i className="bi bi-instagram"></i>
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon"
+            >
+              <i className="bi bi-linkedin"></i>
+            </a>
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon"
+            >
+              <i className="bi bi-github"></i>
+            </a>
+          </div>
+
+          {/* Button */}
+          <div className="text-center mt-3">
+            <button
+              className="btn btn-light fw-bold px-4 py-2 rounded-pill"
+              onClick={onClose}
+            >
+              Đóng
+            </button>
           </div>
         </div>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
-          Đóng
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 };

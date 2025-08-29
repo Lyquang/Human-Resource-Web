@@ -4,17 +4,17 @@ import { CheckCircle, X, Clock } from "phosphor-react";
 import "./AdminAttendance.scss";
 import { ImCross } from "react-icons/im";
 import { TiTick } from "react-icons/ti";
+import Loading from "../Loading/Loading";
 
 const AdminAttendance = () => {
   const [employees, setEmployees] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()+1);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedDateInfo, setSelectedDateInfo] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchAttendanceData = async (month, year) => {
-    setLoading(true);
     setError(null);
 
     try {
@@ -81,7 +81,7 @@ const AdminAttendance = () => {
   const closeDateInfo = () => setSelectedDateInfo(null);
 
   if (loading)
-    return <div className="text-center mt-4">Loading attendance data...</div>;
+    return <div className="text-center mt-4"><Loading/></div>;
   if (error) return <div className="text-center mt-4 text-danger">{error}</div>;
 
   return (

@@ -5,6 +5,7 @@ import AdminSalaryModal from "./AdminSalaryModal";
 import AdjustRateModal from "./AdjustRateModal";
 import { MdEdit } from "react-icons/md";
 import "./AdminSalary.scss";
+import Loading from "../Loading/Loading";
 
 const AdminSalary = () => {
   const [showModal, setShowModal] = useState(false);
@@ -18,13 +19,12 @@ const AdminSalary = () => {
   const [filterMonth, setFilterMonth] = useState("");
   const [filterYear, setFilterYear] = useState("");
   const [Salary, setSalary] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   // Fetch salary data from API
   useEffect(() => {
     const fetchSalaryData = async () => {
-      setLoading(true);
       setError("");
       try {
         const response = await axios.get(
@@ -80,6 +80,10 @@ const AdminSalary = () => {
     const yearMatch = filterYear ? record.year === parseInt(filterYear) : true;
     return monthMatch && yearMatch;
   });
+
+  if (loading) {
+    return ( <Loading /> );
+  }
 
   return (
     <div className="container-fluid">

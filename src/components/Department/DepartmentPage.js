@@ -4,10 +4,14 @@ import DepartmentCard from "./DepartmentCard";
 import axios from "../utils/axiosCustomize";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { MdAddHomeWork } from "react-icons/md";
-import "../../index.css"
+import "../../index.css";
+import Loading from "../Loading/Loading";
 const DepartmentPage = () => {
   const [departments, setDepartments] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   useEffect(() => {
     const fetchDepartmentsWithManagers = async () => {
@@ -36,7 +40,7 @@ const DepartmentPage = () => {
                   ? `${managerData.lastName} ${managerData.firstName}`
                   : "Không rõ";
 
-                const managerAvatar = managerData.avatar ;
+                const managerAvatar = managerData.avatar;
                 // console.log("managerava",managerAvatar );
 
                 return { ...dept, managerName, managerAvatar };
@@ -45,6 +49,8 @@ const DepartmentPage = () => {
                   `Không lấy được tên cho managerId=${dept.managerId}`
                 );
                 return { ...dept, managerName: "Không xác định" };
+              } finally {
+                setLoading(false);
               }
             })
           );
@@ -59,6 +65,19 @@ const DepartmentPage = () => {
 
     fetchDepartmentsWithManagers();
   }, []);
+  if (loading) return <Loading />;
+  if (error)
+    return (
+      <div className="text-center text-red-500 text-lg py-10">{error}</div>
+    );
+
+  const totalPages = Math.ceil(departments.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage; //6 12
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage; // 0 12
+  const currentDepartment = departments.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   return (
     <div className="container py-4">
@@ -72,15 +91,63 @@ const DepartmentPage = () => {
           </AddDepartmentBtn>
         </div>
       </div>
+      {departments.length === 0 ? (
+        <h1> No Department founds</h1>
+      ) : (
+        <>
+          <div className="row">
+            {currentDepartment.map((department) => (
+              <DepartmentCard
+                key={department.departmentId}
+                department={department}
+              />
+            ))}
+          </div>
 
-      <div className="row">
-        {departments.map((department) => (
-          <DepartmentCard
-            key={department.departmentId}
-            department={department}
-          />
-        ))}
-      </div>
+          {/* Pagination Controls */}
+          <nav className="d-flex justify-content-center mt-4">
+            <ul className="pagination">
+              <li
+                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                  Previous
+                </button>
+              </li>
+              {Array.from({ length: totalPages }, (_, i) => (
+                <li
+                  key={i}
+                  className={`page-item ${
+                    currentPage === i + 1 ? "active" : ""
+                  }`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => setCurrentPage(i + 1)}
+                  >
+                    {i + 1}
+                  </button>
+                </li>
+              ))}
+              <li
+                className={`page-item ${
+                  currentPage === totalPages ? "disabled" : ""
+                }`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </>
+      )}
     </div>
   );
 };
